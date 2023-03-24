@@ -1,0 +1,19 @@
+name: update_url.py
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Prepare
+        run: pip install requests beautifulsoup4
+      - name: Run update_url.py
+        env:
+          DDAL_EMAIL: ${{ secrets.DDAL_EMAIL }}
+          DDAL_PASSWORD: ${{ secrets.DDAL_PASSWORD }}
+        run: python update_url.py
